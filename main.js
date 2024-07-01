@@ -12,7 +12,9 @@ const ctx = canvas.getContext('2d')
  *    width: Number,
  *    height: Number,
  *    complete: Boolean,
- *    frameCount: Number
+ *    frameLimit: Number, set in setup function
+ *    frameRate: Number, in frames per second
+ *    animationDuration: Number, in seconds
  *  }
  * }
  */
@@ -20,7 +22,8 @@ const setupConfiguration = {
   canvas: canvas,
   width: 500,
   height: 500,
-  frameLimit: 100,
+  frameRate: 24,
+  animationDuration: 10,
   complete: false
 }
 
@@ -35,7 +38,12 @@ const setCanvasSize = (canvas, width, height) => {
   canvas.setAttribute('height', height)
 }
 
+const setFrameLimit = () => {
+  setupConfiguration.frameLimit = setupConfiguration.frameRate * setupConfiguration.animationDuration
+}
+
 const setup = () => {
+  setFrameLimit(setupConfiguration.frameRate, setupConfiguration.animationDuration)
   setCanvasSize(setupConfiguration.canvas, setupConfiguration.width, setupConfiguration.height)
   setupConfiguration.complete = true
 }
