@@ -12,7 +12,7 @@ const ctx = canvas.getContext('2d')
  *    width: Number,
  *    height: Number,
  *    complete: Boolean,
- *    frameLimit: Number, set in setup function
+ *    frameLimit: Number, set in setFrameLimit - called by setup
  *    frameRate: Number, in frames per second
  *    animationDuration: Number, in seconds
  *  }
@@ -57,18 +57,36 @@ const draw = () => {
     ctx.fillStyle = 'red'
     ctx.fillRect(0, 0, 500, 500)
 
-    cleanup(frame++)
+    const x = Math.random() * (setupConfiguration.width - 20)
+    const y = Math.random() * (setupConfiguration.height - 20)
+    const radius = Math.random() * 20 + 5
+
+    ctx.beginPath()
+    ctx.arc(x, y, radius, 0, Math.PI * 2, true)
+    ctx.fillStyle = 'blue'
+    ctx.fill()
+
+    cleanup(frame++, canvas)
     requestAnimationFrame(draw)
   } else {
     console.log('done')
   }
 }
 
+/**
+ * 
+ * @param {Number} frame 
+ * @param {HTMLCanvasElement} canvas 
+ */
 // a set of instructions to run at the end of each draw step
-const cleanup = (frame) => {
+const cleanup = (frame, canvas) => {
   // update frame count
   const frameCount = document.getElementById('frameCount')
   frameCount.innerHTML = `Frame #: ${frame}`
+
+  // canvas to buffer
+  const frame = canvas.toBuffer();
+  // with this frame we can pass it to a writeFileSync function to save each time and export to a whole video
 }
 
 if (setupConfiguration.complete) {
