@@ -3,6 +3,7 @@ console.log('lets make something')
 // default size is 300x150
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
+let ws
 
 // configuration object
 /**
@@ -27,6 +28,13 @@ const setupConfiguration = {
   complete: false
 }
 
+const connectWebSocket = () => {
+  ws = new WebSocket('ws://localhost:8080')
+
+  ws.onopen = () => {
+    console.log('connection established')
+  }
+}
 /**
  * 
  * @param {HTMLCanvasElement} canvas 
@@ -43,6 +51,7 @@ const setFrameLimit = () => {
 }
 
 const setup = () => {
+  connectWebSocket()
   setFrameLimit(setupConfiguration.frameRate, setupConfiguration.animationDuration)
   setCanvasSize(setupConfiguration.canvas, setupConfiguration.width, setupConfiguration.height)
   setupConfiguration.complete = true
@@ -66,11 +75,21 @@ const draw = () => {
     ctx.fillStyle = 'blue'
     ctx.fill()
 
-    cleanup(frame++, canvas)
+    sendFrameToWebhook()
+    cleanup(frame++)
     requestAnimationFrame(draw)
   } else {
     console.log('done')
   }
+}
+
+const sendFrameToWebhook = () => {
+ 
+  canvas.toBlob(blob => {
+    if (ws.readyState === WebSocket.OPEN) {
+      ws.send(blob)
+    }
+  }), 'image/png'
 }
 
 /**
@@ -83,10 +102,6 @@ const cleanup = (frame, canvas) => {
   // update frame count
   const frameCount = document.getElementById('frameCount')
   frameCount.innerHTML = `Frame #: ${frame}`
-
-  // canvas to buffer
-  const frame = canvas.toBuffer();
-  // with this frame we can pass it to a writeFileSync function to save each time and export to a whole video
 }
 
 if (setupConfiguration.complete) {
