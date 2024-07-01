@@ -3,7 +3,8 @@ console.log('lets make something')
 // default size is 300x150
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
-let ws
+const ws = new WebSocket('ws://localhost:8080')
+
 
 // configuration object
 /**
@@ -29,10 +30,12 @@ const setupConfiguration = {
 }
 
 const connectWebSocket = () => {
-  ws = new WebSocket('ws://localhost:8080')
-
   ws.onopen = () => {
     console.log('connection established')
+  }
+
+  ws.onerror = (err) => {
+    console.error('connection error:', err)
   }
 }
 /**
