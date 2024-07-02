@@ -1,42 +1,42 @@
 interface ICanvasSetup {
-  canvas: HTMLCanvasElement;
-  width: number;
-  height: number;
-  frameRate: number;
-  frameLimit: number;
-  animationDuration: number;
-  animationComplete?: boolean;
+	canvas: HTMLCanvasElement;
+	width: number;
+	height: number;
+	frameRate: number;
+	frameLimit: number;
+	animationDuration: number;
+	animationComplete?: boolean;
 }
 
 const basicSetup = {
-  width: 500,
-  height: 500,
-  frameRate: 24,
-  animationDuration: 30,
-}
+	width: 500,
+	height: 500,
+	frameRate: 24,
+	animationDuration: 30
+};
 
-export class CanvasSetup implements ICanvasSetup{
-  public canvas: HTMLCanvasElement;
-  public width: number;
-  public height: number;
-  public frameRate: number;
-  public frameLimit: number;
-  public animationDuration: number;
-  public animationComplete: boolean;
+export class CanvasSetup implements ICanvasSetup {
+	public canvas: HTMLCanvasElement;
+	public width: number;
+	public height: number;
+	public frameRate: number;
+	public frameLimit: number;
+	public animationDuration: number;
+	public animationComplete: boolean;
 
-  constructor(options: Partial<ICanvasSetup> & {canvas: HTMLCanvasElement}) {
-    const settings = { ...basicSetup, ...options };
-    this.canvas = settings.canvas
-    this.width = settings.width;
-    this.height = settings.height;
-    this.frameRate = settings.frameRate;
-    this.animationDuration = settings.animationDuration;
-    this.frameLimit = this.frameRate * this.animationDuration
-    this.animationComplete = false;
-  }
+	constructor(options: Partial<ICanvasSetup> & { canvas: HTMLCanvasElement }) {
+		const settings = { ...basicSetup, ...options };
+		this.canvas = settings.canvas;
+		this.width = settings.width;
+		this.height = settings.height;
+		this.frameRate = settings.frameRate;
+		this.animationDuration = settings.animationDuration;
+		this.frameLimit = this.frameRate * this.animationDuration;
+		this.animationComplete = false;
+	}
 
-  setCanvasSize() {
-    this.canvas.width = this.width;
-    this.canvas.height = this.height;
-  }
+	setCanvasSize() {
+		this.canvas.setAttribute('width', this.width.toString());
+		this.canvas.setAttribute('height', this.height.toString());
+	}
 }
