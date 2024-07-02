@@ -22,7 +22,7 @@ export class CanvasSetup implements ICanvasSetup {
 	public frameRate: number;
 	public frameLimit: number;
 	public animationDuration: number;
-	public animationComplete: boolean;
+	private _animationComplete: boolean;
 
 	constructor(options: Partial<ICanvasSetup> & { canvas: HTMLCanvasElement }) {
 		const settings = { ...basicSetup, ...options };
@@ -32,11 +32,19 @@ export class CanvasSetup implements ICanvasSetup {
 		this.frameRate = settings.frameRate;
 		this.animationDuration = settings.animationDuration;
 		this.frameLimit = this.frameRate * this.animationDuration;
-		this.animationComplete = false;
+		this._animationComplete = false;
 	}
 
 	setCanvasSize() {
 		this.canvas.setAttribute('width', this.width.toString());
 		this.canvas.setAttribute('height', this.height.toString());
+	}
+
+	get animationComplete(): boolean {
+		return this._animationComplete;
+	}
+
+	set animationComplete(value: boolean) {
+		this.animationComplete = value;
 	}
 }
