@@ -1,2 +1,22 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+  import { onMount } from 'svelte';
+  import { CanvasSetup } from '$lib';
+
+  let canvas;
+  export const frameCount = 0;
+  onMount(() => {
+    canvas = document.getElementById('canvas')
+    const ctx = canvas.getContext('2d')
+    const setup = new CanvasSetup(canvas);
+  });
+</script>
+
+<h1>Lets make something</h1>
+<h2>Frame Count: {frameCount}</h2>
+<canvas id="canvas"></canvas>
+
+<style>
+  canvas {
+    border: 1px solid black;
+  }
+</style>
