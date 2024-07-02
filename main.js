@@ -3,8 +3,6 @@ console.log('lets make something')
 // default size is 300x150
 const canvas = document.getElementById('canvas')
 const ctx = canvas.getContext('2d')
-const ws = new WebSocket('ws://localhost:8080')
-
 
 // configuration object
 /**
