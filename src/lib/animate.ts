@@ -23,6 +23,10 @@ export const animate = (_canvas: HTMLCanvasElement, _setup: CanvasSetup) => {
 		ctx.fillStyle = 'blue';
 		ctx.fill();
 
+		ctx.font = '18px Arial';
+		ctx.fillStyle = 'white';
+		ctx.fillText(`Frame: ${get(frameCount)}`, 400, 450);
+
 		const imageDateUrl = canvas.toDataURL();
 		saveImage(imageDateUrl)
 		cleanup();
@@ -55,7 +59,7 @@ const cleanup = () => {
 };
 
 const checkForComplete = () => {
-	if (get(frameCount) >= setup.frameLimit) {
+	if (get(frameCount) > setup.frameLimit) {
 		setup.animationComplete = true;
 		return true;
 	} else {
