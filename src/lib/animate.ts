@@ -23,6 +23,7 @@ export const animate = (_canvas: HTMLCanvasElement, _setup: CanvasSetup) => {
 		ctx.fillStyle = 'blue';
 		ctx.fill();
 
+		// this is helpful to check order of 'upload'
 		ctx.font = '18px Arial';
 		ctx.fillStyle = 'white';
 		ctx.fillText(`Frame: ${get(frameCount)}`, 400, 450);
