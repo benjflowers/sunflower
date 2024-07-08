@@ -23,9 +23,29 @@ export const animate = (_canvas: HTMLCanvasElement, _setup: CanvasSetup) => {
 		ctx.fillStyle = 'blue';
 		ctx.fill();
 
+		const imageDateUrl = canvas.toDataURL();
+		saveImage(imageDateUrl)
 		cleanup();
 	}
+
+	return;
 };
+
+const saveImage = async (imageDataUrl: string) => {
+	const fetchRes = await fetch(imageDataUrl);
+	const blob = await fetchRes.blob();
+
+	const formData = new FormData();
+	formData.append('image', blob, `frame-${get(frameCount)}.png`);
+
+	fetch('http://localhost:3000/upload', {
+		method: 'POST',
+		body: formData,
+	})
+	.then(response => response.json())
+	.then(data => console.log(data))
+	.catch(error => console.error(error))
+}
 
 const cleanup = () => {
 	updateFrameCount();
