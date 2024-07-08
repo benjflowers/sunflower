@@ -18,7 +18,6 @@
 
 <h1>Lets make something</h1>
 <button on:click={() => createSomeIsh(canvas, setup)}>Make it do</button>
-<h2>Frame Count: {$frameCount}</h2>
 <canvas id="canvas"></canvas>
 
 <style>
