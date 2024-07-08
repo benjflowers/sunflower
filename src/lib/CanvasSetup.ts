@@ -12,7 +12,7 @@ const basicSetup = {
 	width: 500,
 	height: 500,
 	frameRate: 24,
-	animationDuration: 30
+	animationDuration: 10
 };
 
 export class CanvasSetup implements ICanvasSetup {
