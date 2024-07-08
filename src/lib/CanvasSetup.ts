@@ -45,6 +45,6 @@ export class CanvasSetup implements ICanvasSetup {
 	}
 
 	set animationComplete(value: boolean) {
-		this.animationComplete = value;
+		this._animationComplete = value;
 	}
 }
